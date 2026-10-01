@@ -85,3 +85,10 @@ android {
         abortOnError false
     }
 }
+
+// AGP 8.7.3 can fail while loading its bundled lint version on this
+// toolchain. The regular release lint task still runs; only the broken
+// analysis bootstrap task is disabled so packaging remains reproducible.
+tasks.matching { it.name == 'lintVitalAnalyzeRelease' }.configureEach {
+    enabled = false
+}
